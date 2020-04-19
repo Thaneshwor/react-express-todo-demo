@@ -4,6 +4,7 @@ import Login from '../login/Login';
 import Navbar from '../header/Navbar';
 import Dashboard from '../dashboard/Dashboard';
 import TaskDetail from '../taskdetail/TaskDetail';
+import CreateUser from '../createuser/CreateUser';
 
 class Main extends Component {
 
@@ -13,7 +14,7 @@ class Main extends Component {
                 <Navbar />
                 {/* <Login /> */}
                 {/* <Dashboard></Dashboard> */}
-                <TaskDetail />
+                <CreateUser />
             </div >
         );
     };

@@ -1,0 +1,11 @@
+.btn-submit{
+    width: 30%;
+}
+
+
+@media screen and (max-width: 480px) {
+    .btn-submit{
+       padding: 10px;
+    }
+    
+}
