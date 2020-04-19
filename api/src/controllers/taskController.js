@@ -53,3 +53,47 @@ const createTask = async (req, res) => {
         return res.status(status.error).send(errorMessage);
     }
 };
+
+/**
+   * Get All Tasks
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} tasks array
+   */
+const getAllTasks = async (req, res) => {
+    const { is_admin, user_id } = req.user;
+
+    if (!is_admin === true) {
+        const getAllTaskQuery = 'SELECT * FROM task WHERE user_id = $1 ORDER BY id DESC';
+        try {
+            const { rows } = await dbQuery.query(getAllTaskQuery, [user_id]);
+            const dbResponse = rows;
+            if (dbResponse[0] === undefined) {
+                errorMessage.error = 'There are no tasks';
+                return res.status(status.notfound).send(errorMessage);
+            }
+            successMessage.data = dbResponse;
+            return res.status(status.success).send(successMessage);
+        } catch (error) {
+            errorMessage.error = 'An error Occured';
+            return res.status(status.error).send(errorMessage);
+        }
+    }
+
+    const getAllTaskQuery = 'SELECT * FROM task ORDER BY id DESC';
+
+    try {
+        const { rows } = await dbQuery.query(getAllTaskQuery);
+        const dbResponse = rows;
+        if (dbResponse[0] === undefined) {
+            errorMessage.error = 'There are no tasks';
+            return res.status(status.notfound).send(errorMessage);
+        }
+        successMessage.data = dbResponse;
+        return res.status(status.success).send(successMessage);
+    } catch (error) {
+        errorMessage.error = 'An error Occured';
+        return res.status(status.error).send(errorMessage);
+    }
+};
+
