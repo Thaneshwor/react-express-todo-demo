@@ -1,3 +1,8 @@
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 /**
 * isValidEmail helper method
 * @param {string} email
@@ -44,9 +49,30 @@ const empty = (input) => {
     }
 };
 
+/**
+ * Generate Token
+ * @params {string} id
+ * @returns {string} token
+ */
+const generateUserToken = (email, id, is_admin, first_name, last_name) => {
+
+    const token = jwt.sign(
+        {
+            email,
+            user_id: id,
+            is_admin,
+            first_name,
+            last_name,
+        },
+        process.env.SECRET_KEY, { expiresIn: process.env.EXPIRES_IN }
+    );
+    return token;
+};
+
 export {
     isValidEmail,
     validatePassword,
     isEmpty,
     empty,
+    generateUserToken,
 };
