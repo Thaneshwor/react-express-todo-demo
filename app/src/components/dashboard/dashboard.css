@@ -1,0 +1,48 @@
+.task-body{
+    display: flex;
+    padding-top: 5px;
+    height: cal(100vh - 20px);
+}
+
+.task-left{
+    flex: 20%;
+}
+
+.task-right{
+    flex: 80%;
+    padding: 20px;
+}
+
+.task-aside{
+    margin-top: 10px;
+    padding-top: 20px;
+}
+
+.task-aside ul{
+    list-style-type: none;
+}
+
+.task-aside li{
+    margin: 5px 0px;
+    padding:10px 0px;
+    background-color: #c8ccce;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+@media screen and (max-width: 480px) {
+
+    .task-body{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .task-aside li{
+        width: 33%;
+        display: inline-block;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+}

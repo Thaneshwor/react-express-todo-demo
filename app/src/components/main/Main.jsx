@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../../assets/css/common.css';
 import Login from '../login/Login';
 import Navbar from '../header/Navbar';
+import Dashboard from '../dashboard/Dashboard';
 
 class Main extends Component {
 
@@ -9,7 +10,8 @@ class Main extends Component {
         return (
             <div className='container-max-width'>
                 <Navbar />
-                <Login />
+                {/* <Login /> */}
+                <Dashboard></Dashboard>
             </div >
         );
     };

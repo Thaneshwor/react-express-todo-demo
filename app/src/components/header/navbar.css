@@ -1,5 +1,5 @@
 .nav-bar-container{
-    background-color: #ccd9ff;
+    background-color: #4b6e7e;
 }
 
 .nav-bar{
@@ -22,6 +22,9 @@
     flex: 1;
     justify-content: flex-end;
 }
+.nav-bar-left h1{
+    color: #fff;
+}
 
 .nav-bar-right ul li{
     display: inline;
@@ -29,11 +32,11 @@
     margin-right: 5px;
     border-radius: 5px;
     color: #fff;
-    background-color: rgb(153, 141, 141)
+    background-color: rgb(147, 201, 142)
 }
 
 .nav-bar-right ul li:hover{
-    background-color: rgb(110, 103, 103)
+    background-color: rgb(202, 185, 185)
 }
 
 @media screen and (max-width: 768px) {
@@ -47,11 +50,31 @@
 }
 
 @media screen and (max-width: 480px) {
+    .nav-bar{
+        padding: 30px 0;
+    }
+
     .nav-bar-left h1{
         font-size: 19px;
     } 
+
     .nav-bar-right ul li{
         padding: 11px 22px;
+        font-size: 11px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .nav-bar{
+        padding: 20px 0;
+    }
+
+    .nav-bar-left h1{
+        font-size: 19px;
+    }
+
+    .nav-bar-right ul li{
+        padding: 5px 10px;
         font-size: 11px;
     }
 }
