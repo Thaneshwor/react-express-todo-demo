@@ -154,3 +154,54 @@ const deleteTask = async (req, res) => {
         return res.status(status.error).send(errorMessage);
     }
 }
+
+/**
+ * Update a Task
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} updated task
+ */
+
+const updateTask = async (req, res) => {
+    const { task_id } = req.params;
+    const { user_id } = req.user;
+    const {
+        description, is_completed, due_date
+    } = req.body;
+
+    if (empty(description)) {
+        errorMessage.error = 'Description field is required';
+        return res.status(status.bad).send(errorMessage);
+    }
+
+    const updateTaskQuery = `UPDATE task
+        SET description = $1,
+            is_completed = $2,
+            due_date = $3
+        WHERE
+            id = $4 AND user_id = $5 returning *`;
+
+    try {
+        const { rows } = await dbQuery.query(updateTaskQuery, [description, is_completed, due_date, task_id, user_id]);
+        const dbResponse = rows[0];
+        if (!dbResponse) {
+            errorMessage.error = 'You have no task with that id';
+            return res.status(status.notfound).send(errorMessage);
+        }
+        successMessage.data = {};
+        successMessage.data.message = 'Task updated successfully';
+        return res.status(status.success).send(successMessage);
+
+    } catch (error) {
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    }
+}
+
+export {
+    createTask,
+    getAllTasks,
+    getTaskByStatus,
+    deleteTask,
+    updateTask,
+};
