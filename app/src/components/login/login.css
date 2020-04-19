@@ -1,0 +1,38 @@
+input{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    display: block;
+}
+
+.form-container-out{
+    padding-top: 100px;
+    padding-bottom: 20px;
+
+}
+.form-container-in{
+    width: 40%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+label{
+    font-weight: bold;
+}
+
+
+@media screen and (max-width: 768px) {
+    .form-container-in{
+        width: 60%;
+    }
+
+}
+
+@media screen and (max-width: 480px) {
+    .form-container-in{
+        width: 80%;
+    }
+
+}
