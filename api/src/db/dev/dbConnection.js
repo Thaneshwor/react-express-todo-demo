@@ -29,7 +29,6 @@ const createUserTable = () => {
     });
 };
 
-
 /**
  * Create Task Table
  * 
@@ -51,3 +50,64 @@ const createTaskTable = () => {
     });
 };
 
+/**
+ * Drop User Table
+ */
+
+const dropUserTable = () => {
+  const userDropQuery = 'DROP TABLE IF EXISTS users';
+
+  pool.query(userDropQuery)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+/**
+ * Drop Task Table
+ */
+
+const dropTaskTable = () => {
+  const taskDropQuery = 'DROP TABLE IF EXISTS task';
+
+  pool.query(taskDropQuery)
+    .then((res) => {
+      console.log(res);
+      pool.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      pool.end();
+    });
+};
+
+/**
+ * Create All Tables
+ */
+
+const createAllTables = () => {
+  createUserTable();
+  createTaskTable();
+};
+
+/**
+ * Drop All Tables
+ */
+
+const dropAllTables = () => {
+  dropUserTable();
+  dropTaskTable();
+};
+
+pool.on('remove', () => {
+  console.log('Client remved');
+  process.exit(0);
+});
+
+export {
+  createAllTables,
+  dropAllTables,
+};
