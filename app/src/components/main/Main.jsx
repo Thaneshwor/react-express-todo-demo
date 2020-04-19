@@ -3,6 +3,7 @@ import '../../assets/css/common.css';
 import Login from '../login/Login';
 import Navbar from '../header/Navbar';
 import Dashboard from '../dashboard/Dashboard';
+import TaskDetail from '../taskdetail/TaskDetail';
 
 class Main extends Component {
 
@@ -11,7 +12,8 @@ class Main extends Component {
             <div className='container-max-width'>
                 <Navbar />
                 {/* <Login /> */}
-                <Dashboard></Dashboard>
+                {/* <Dashboard></Dashboard> */}
+                <TaskDetail />
             </div >
         );
     };

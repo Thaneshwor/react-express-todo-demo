@@ -1,0 +1,64 @@
+.title{
+    padding: 20px 0;
+    text-align: center;
+}
+
+.task-card{
+    width: 50%;
+    margin: 0 auto;
+    border: 1px solid #e0e0e0;
+    padding: 40px 20px 20px;
+}
+
+.task-input, .task-group-input, .task-due-date-input{
+    margin: 10px 0;
+}
+
+select{
+    width: 25%;
+    padding:5px 10px;
+    font-size: 15px;
+}
+
+.btn-done{
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 20%;
+    border-radius: 5px;
+  }
+
+
+
+@media screen and (max-width: 768px){
+    .task-card{
+        width: 70%;
+    }
+
+    select{
+        width: 30%;
+        padding:5px 10px;
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 480px){
+    .task-card{
+        width: 80%;
+    }
+
+    .btn-done{
+        padding: 14px 20px;
+        margin: 8px 0;
+        width: 25%;
+      }
+}
+
+@media screen and (max-width: 320px){
+    .btn-done{
+        width: 35%;
+      }
+}
