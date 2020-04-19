@@ -21,8 +21,8 @@ const verifyToken = async (req, res, next) => {
         errorMessage.error = 'Token not provided';
         return res.status(status.bad).send(errorMessage);
     }
-    try {
 
+    try {
         const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
         req.user = {
