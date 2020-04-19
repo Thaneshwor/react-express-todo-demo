@@ -28,3 +28,26 @@ const createUserTable = () => {
       pool.end();
     });
 };
+
+
+/**
+ * Create Task Table
+ * 
+ *  TODO :unique desctiption
+ */
+
+const createTaskTable = () => {
+  const taskCreateQuery = `CREATE TABLE IF NOT EXISTS task
+  (id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    description VARCHAR(100) NOT NULL,
+    is_completed BOOL DEFAULT false,
+    due_date DATE NOT NULL,
+    created_date DATE NOT NULL)`;
+  pool.query(taskCreateQuery)
+    .then((res) => {
+      console.log(res);
+      pool.end();
+    });
+};
+
