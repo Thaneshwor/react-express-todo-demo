@@ -97,3 +97,30 @@ const getAllTasks = async (req, res) => {
     }
 };
 
+
+// Error in this task
+/**
+ * Get Tasks by status(is_complete)
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} tasks array
+ */
+
+const getTaskByStatus = async (req, res) => {
+    const { status } = req.params;
+
+    const findTaskQuery = 'SELECT * FROM task WHERE is_completed = $1 ORDER BY id DESC';
+
+    try {
+        const { rows } = await dbQuery.query(findTaskQuery, [status]);
+        const dbResponse = rows;
+
+        if (!dbResponse[0]) {
+            errorMessage.error = 'No tasks available';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    } catch (error) {
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    }
+};
