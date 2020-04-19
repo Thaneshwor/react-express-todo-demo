@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
@@ -69,10 +70,21 @@ const generateUserToken = (email, id, is_admin, first_name, last_name) => {
     return token;
 };
 
+/**
+ * Hash Password Method
+ * @param {string} password
+ * @returns {string} hashed password
+ */
+
+const saltRounds = 10;
+const salt = bcrypt.genSaltSync(saltRounds);
+const hashPassword = password => bcrypt.hashSync(password, salt);
+
 export {
     isValidEmail,
     validatePassword,
     isEmpty,
     empty,
     generateUserToken,
+    hashPassword,
 };
