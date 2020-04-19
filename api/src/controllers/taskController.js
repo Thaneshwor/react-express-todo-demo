@@ -124,3 +124,33 @@ const getTaskByStatus = async (req, res) => {
         return res.status(status.error).send(errorMessage);
     }
 };
+
+/**
+ * Delete a Task
+ * @param {object} req
+ * @param {object} res
+ * @returns {void} return response task deleted successfully
+ */
+
+const deleteTask = async (req, res) => {
+    const { task_id } = req.params;
+    const { user_id } = req.user;
+
+    const deleteTaskQuery = 'DELETE FROM task WHERE id = $1 AND user_id = $2 returning *';
+
+    try {
+        const { rows } = await dbQuery.query(deleteTaskQuery, [task_id, user_id]);
+        const dbResponse = rows[0];
+        if (!dbResponse) {
+            errorMessage.error = 'You have no task with that id';
+            return res.status(status.notfound).send(errorMessage);
+        }
+        successMessage.data = {};
+        successMessage.data.message = 'Task deleted successfully';
+        return res.status(status.success).send(successMessage);
+
+    } catch (error) {
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    }
+}
