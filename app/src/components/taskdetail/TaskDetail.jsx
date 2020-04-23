@@ -20,6 +20,13 @@ class TaskDetail extends Component {
         }
     }
 
+    componentWillMount = () => {
+        if (!this.props.isAuthenticated) {
+            history.push('/signin');
+        }
+    }
+
+
     createNewTask = () => {
         this.props.createNewTask(this.state);
     }
@@ -77,6 +84,7 @@ TaskDetail.propTypes = {
 const mapStateToProps = (state, ownProps) => {
     let id = ownProps.match.params.id;
     const { tasks } = state.task;
+    let isAuthenticated = state.auth.isAuthenticated;
     let task = getEmptyTask();
     if (id != 0) {
         task = tasks.find(task => task.id == id);
@@ -89,6 +97,7 @@ const mapStateToProps = (state, ownProps) => {
         task,
         state,
         task_group: state.task_group,
+        isAuthenticated
     }
 };
 

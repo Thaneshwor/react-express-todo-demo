@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import TaskList from '../tasklist/TaskList';
 import { updateTaskGroup } from '../../actions/taskAction';
-import './dashboard.css';
+import { history } from '../../store/history';
+
 import { connect } from 'react-redux';
+import './dashboard.css';
 
 class Dashboard extends Component {
+
+    componentWillMount = () => {
+        if (!this.props.isAuthenticated) {
+            history.push('/signin');
+        }
+    }
 
     changeStatue = (e) => {
         this.props.updateTaskGroup(e.target.value);

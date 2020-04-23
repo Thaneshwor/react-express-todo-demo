@@ -19,27 +19,27 @@ class Main extends Component {
                     <Navbar />
                     <Route
                         exact
-                        path='/signup' component={(CreateUser)}
+                        path='/signup' component={CreateUser}
                     />
                     <Route
                         exact
-                        path='/signin' component={(Login)}
+                        path='/signin' component={Login}
                     />
 
                     <Route
                         exact
-                        path='/logout' component={(Login)}
+                        path='/logout' component={Login}
                     />
                     <Route
                         exact
                         path={'/task/:id'}
-                        component={(TaskDetail)}
+                        component={TaskDetail}
                     />
 
                     <Route
                         exact
                         path={'/dashboard'}
-                        component={(Dashboard)}
+                        component={Dashboard}
                     />
                 </div >
             </Router>
