@@ -12,7 +12,6 @@ export default combineReducers({
     auth: authReducer,
 })
 
-
 export const store = createStore(
     (state = {}) => state,
     applyMiddleware(createLogger(), thunk)

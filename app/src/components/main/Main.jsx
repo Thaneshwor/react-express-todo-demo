@@ -8,9 +8,7 @@ import TaskDetail from '../taskdetail/TaskDetail';
 import CreateUser from '../createuser/CreateUser';
 import '../../assets/css/common.css';
 
-
 class Main extends Component {
-
 
     render() {
         return (
