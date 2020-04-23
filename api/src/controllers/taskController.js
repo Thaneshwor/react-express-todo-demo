@@ -24,7 +24,6 @@ const createTask = async (req, res) => {
     const {
         description, is_completed, due_date, task_group
     } = req.body;
-    console.log(description, task_group, '----------------------');
     const created_on = moment(new Date()).format('L');
 
     if (empty(description)) {
@@ -123,7 +122,6 @@ const updateTask = async (req, res) => {
         description, is_completed, due_date, task_group
     } = req.body;
 
-    console.log('999999999999', due_date);
     if (empty(description)) {
         errorMessage.error = 'Description field is required';
         return res.status(status.bad).send(errorMessage);
@@ -140,7 +138,6 @@ const updateTask = async (req, res) => {
     try {
         const { rows } = await dbQuery.query(updateTaskQuery, [description, is_completed, due_date, task_group, task_id, user_id]);
         const dbResponse = rows[0];
-        console.log(dbResponse)
         successMessage.data = {};
         if (!dbResponse) {
             successMessage.data.message = 'You have no task with that id';

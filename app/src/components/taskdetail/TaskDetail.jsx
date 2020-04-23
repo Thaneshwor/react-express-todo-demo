@@ -32,7 +32,6 @@ class TaskDetail extends Component {
     }
 
     updateTask = () => {
-        console.log(JSON.stringify(this.state) + 'hello');
         this.props.updateDescription(this.state);
         history.push('/dashboard');
     }

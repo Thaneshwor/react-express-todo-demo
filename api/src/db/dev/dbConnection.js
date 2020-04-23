@@ -103,7 +103,7 @@ const dropAllTables = () => {
 };
 
 pool.on('remove', () => {
-  console.log('Client remved');
+  console.log('Client removed');
   process.exit(0);
 });
 

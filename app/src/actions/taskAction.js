@@ -11,8 +11,6 @@ export const getTasks = () => (dispatch, getState) => {
             }
         }).
         then(res => {
-
-            console.log(res.data)
             dispatch({
                 type: mutation.GET_TASKS,
                 payload: res.data
