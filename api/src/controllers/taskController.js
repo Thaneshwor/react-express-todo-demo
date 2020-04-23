@@ -14,16 +14,17 @@ import {
 
 
 /**
-   * Add A Task
-   * @param {object} req
-   * @param {object} res
-   * @returns {object} 
-   */
+* Add A Task
+* @param {object} req
+* @param {object} res
+* @returns {object} 
+*/
 const createTask = async (req, res) => {
+    const { user_id } = req.user;
     const {
-        user_id, description, is_completed, due_date
+        description, is_completed, due_date, task_group
     } = req.body;
-
+    console.log(description, task_group, '----------------------');
     const created_on = moment(new Date()).format('L');
 
     if (empty(description)) {
@@ -31,13 +32,14 @@ const createTask = async (req, res) => {
         return res.status(status.bad).send(errorMessage);
     }
     const addTaskQuery = `INSERT INTO
-          task(user_id, description, is_completed, due_date, created_date)
-          VALUES($1, $2, $3, $4, $5)
+          task(user_id, description, is_completed, task_group, due_date, created_date)
+          VALUES($1, $2, $3, $4, $5, $6)
           returning *`;
     const values = [
         user_id,
         description,
         is_completed,
+        task_group,
         due_date,
         created_on
     ];
@@ -49,8 +51,7 @@ const createTask = async (req, res) => {
         successMessage.data = dbResponse;
         return res.status(status.created).send(successMessage);
     } catch (error) {
-        errorMessage.error = 'Unable to add task';
-        return res.status(status.error).send(errorMessage);
+        return res.status(status.error).send('Unable to add task');
     }
 };
 
@@ -61,66 +62,18 @@ const createTask = async (req, res) => {
    * @returns {object} tasks array
    */
 const getAllTasks = async (req, res) => {
-    const { is_admin, user_id } = req.user;
+    const { user_id } = req.user;
 
-    if (!is_admin === true) {
-        const getAllTaskQuery = 'SELECT * FROM task WHERE user_id = $1 ORDER BY id DESC';
-        try {
-            const { rows } = await dbQuery.query(getAllTaskQuery, [user_id]);
-            const dbResponse = rows;
-            if (dbResponse[0] === undefined) {
-                errorMessage.error = 'There are no tasks';
-                return res.status(status.notfound).send(errorMessage);
-            }
-            successMessage.data = dbResponse;
-            return res.status(status.success).send(successMessage);
-        } catch (error) {
-            errorMessage.error = 'An error Occured';
-            return res.status(status.error).send(errorMessage);
-        }
-    }
-
-    const getAllTaskQuery = 'SELECT * FROM task ORDER BY id DESC';
-
+    const getAllTaskQuery = 'SELECT * FROM task WHERE user_id = $1 ORDER BY id DESC';
     try {
-        const { rows } = await dbQuery.query(getAllTaskQuery);
+        const { rows } = await dbQuery.query(getAllTaskQuery, [user_id]);
         const dbResponse = rows;
         if (dbResponse[0] === undefined) {
-            errorMessage.error = 'There are no tasks';
-            return res.status(status.notfound).send(errorMessage);
+            return res.status(status.success).send([]);
         }
-        successMessage.data = dbResponse;
-        return res.status(status.success).send(successMessage);
+        return res.status(status.success).send(dbResponse);
     } catch (error) {
         errorMessage.error = 'An error Occured';
-        return res.status(status.error).send(errorMessage);
-    }
-};
-
-
-// Error in this task
-/**
- * Get Tasks by status(is_complete)
- * @param {object} req
- * @param {object} res
- * @returns {object} tasks array
- */
-
-const getTaskByStatus = async (req, res) => {
-    const { status } = req.params;
-
-    const findTaskQuery = 'SELECT * FROM task WHERE is_completed = $1 ORDER BY id DESC';
-
-    try {
-        const { rows } = await dbQuery.query(findTaskQuery, [status]);
-        const dbResponse = rows;
-
-        if (!dbResponse[0]) {
-            errorMessage.error = 'No tasks available';
-            return res.status(status.notfound).send(errorMessage);
-        }
-    } catch (error) {
-        errorMessage.error = 'Operation was not successful';
         return res.status(status.error).send(errorMessage);
     }
 };
@@ -141,11 +94,12 @@ const deleteTask = async (req, res) => {
     try {
         const { rows } = await dbQuery.query(deleteTaskQuery, [task_id, user_id]);
         const dbResponse = rows[0];
-        if (!dbResponse) {
-            errorMessage.error = 'You have no task with that id';
-            return res.status(status.notfound).send(errorMessage);
-        }
+
         successMessage.data = {};
+        if (!dbResponse) {
+            successMessage.data.message = 'No record found';
+            return res.status(status.success).send(successMessage);
+        }
         successMessage.data.message = 'Task deleted successfully';
         return res.status(status.success).send(successMessage);
 
@@ -166,9 +120,10 @@ const updateTask = async (req, res) => {
     const { task_id } = req.params;
     const { user_id } = req.user;
     const {
-        description, is_completed, due_date
+        description, is_completed, due_date, task_group
     } = req.body;
 
+    console.log('999999999999', due_date);
     if (empty(description)) {
         errorMessage.error = 'Description field is required';
         return res.status(status.bad).send(errorMessage);
@@ -177,18 +132,20 @@ const updateTask = async (req, res) => {
     const updateTaskQuery = `UPDATE task
         SET description = $1,
             is_completed = $2,
-            due_date = $3
+            due_date = $3,
+            task_group = $4
         WHERE
-            id = $4 AND user_id = $5 returning *`;
+            id = $5 AND user_id = $6 returning *`;
 
     try {
-        const { rows } = await dbQuery.query(updateTaskQuery, [description, is_completed, due_date, task_id, user_id]);
+        const { rows } = await dbQuery.query(updateTaskQuery, [description, is_completed, due_date, task_group, task_id, user_id]);
         const dbResponse = rows[0];
-        if (!dbResponse) {
-            errorMessage.error = 'You have no task with that id';
-            return res.status(status.notfound).send(errorMessage);
-        }
+        console.log(dbResponse)
         successMessage.data = {};
+        if (!dbResponse) {
+            successMessage.data.message = 'You have no task with that id';
+            return res.status(status.success).send(errorMessage);
+        }
         successMessage.data.message = 'Task updated successfully';
         return res.status(status.success).send(successMessage);
 
@@ -201,7 +158,6 @@ const updateTask = async (req, res) => {
 export {
     createTask,
     getAllTasks,
-    getTaskByStatus,
     deleteTask,
     updateTask,
 };

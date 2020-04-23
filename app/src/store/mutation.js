@@ -1,5 +1,6 @@
 export const REQUEST_TASK_CREATION = 'REQUEST_TASK_CREATION';
-export const CREATE_TASK = 'CREATE_TASK';
+
+export const TASKS_LOADING = 'TASKS_LOADING';
 export const SET_TASK_COMPLETE = 'SET_TASK_COMPLETE';
 export const SET_TASK_GROUP = 'SET_TASK_GROUP';
 export const SET_TASK_NAME = 'SET_TASK_NAME';
@@ -11,14 +12,25 @@ export const NOT_AUTHENTICATICATED = 'NOT_AUTHENTICATICATED;'
 export const SET_STATE = 'SET_STATE';
 
 
-export const requstAuthenticateUser = (username, password) => ({
-    type: REQUEST_AUTHENTICATE_USER,
-    username,
-    password,
-});
+export const CREATE_TASK = 'CREATE_TASK';
+export const DELETE_TASK = 'DELETE_TASK';
+export const UPDATE_TASK = 'UPDATE_TASK';
+export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
+export const UPDATE_GROUP = 'UPDATE_GROUP';
+export const UPDATE_TASK_STATUS = 'UPDATE_TASK_STATUS';
+export const GET_TASKS = 'GET_TASKS';
+export const ADD_TASK = 'ADD_TASK';
 
-export const processAuthenticateUser = (status = AUTHENTICATING, session = null) => ({
-    type: PROCESSING_AUTHENTICATE_USER,
-    session,
-    authenticated: status
-});
+export const USER_LOADING = 'USER_LOADING';
+export const USER_LOADED = 'USER_LOADED';
+
+export const AUTH_ERROR = 'AUTH_ERROR';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+
+export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const REGISTER_FAIL = 'REGISTER_FAIL';
+export const GET_ERRORS = 'GET_ERRORS';
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+

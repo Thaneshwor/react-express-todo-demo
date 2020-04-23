@@ -26,6 +26,11 @@
     color: #fff;
 }
 
+.nav_btn{
+    background: transparent;
+    border:none;
+    background-color: rgb(147, 201, 142);
+}
 .nav-bar-right ul li{
     display: inline;
     padding: 14px 28px;

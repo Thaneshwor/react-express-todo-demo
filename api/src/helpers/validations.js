@@ -4,6 +4,17 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+
+/**
+ * 
+ * @param {string} hashPassword
+ * @param {string} password
+ * @returns {Boolean} return True or False 
+ */
+const comparePassword = (hashedPassword, password) => {
+    return bcrypt.compareSync(password, hashedPassword);
+};
+
 /**
 * isValidEmail helper method
 * @param {string} email
@@ -60,12 +71,9 @@ const generateUserToken = (email, id, is_admin, first_name, last_name) => {
     const token = jwt.sign(
         {
             email,
-            user_id: id,
-            is_admin,
-            first_name,
-            last_name,
+            user_id: id
         },
-        process.env.SECRET_KEY, { expiresIn: process.env.EXPIRES_IN }
+        process.env.SECRET_KEY, { expiresIn: '1d' }
     );
     return token;
 };
@@ -87,4 +95,5 @@ export {
     empty,
     generateUserToken,
     hashPassword,
+    comparePassword,
 };

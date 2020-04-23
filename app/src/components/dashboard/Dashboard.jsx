@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import TaskList from '../tasklist/TaskList';
+import { updateTaskGroup } from '../../actions/taskAction';
 import './dashboard.css';
+import { connect } from 'react-redux';
 class Dashboard extends Component {
+
+    changeStatue = (e) => {
+        console.log(e.target.value)
+        this.props.updateTaskGroup(e.target.value);
+    }
 
     render() {
         return (
@@ -10,9 +17,9 @@ class Dashboard extends Component {
                     <div className='task-left'>
                         <div className='task-aside'>
                             <ul>
-                                <li><a href='#'><span className='square' />To Do</a></li>
-                                <li><span className='square' />Doing</li>
-                                <li><span className='square' />Done</li>
+                                <li><span className='square' /><button onClick={this.changeStatue} value='To Do'>To Do</button></li>
+                                <li><span className='square' /><button onClick={this.changeStatue} value='Doing'>Doing</button></li>
+                                <li><span className='square' /><button onClick={this.changeStatue} value='Done'>Done</button></li>
                             </ul>
                         </div>
                     </div>
@@ -25,4 +32,12 @@ class Dashboard extends Component {
     }
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => {
+
+    let task_status = state.task_status;
+    return {
+        task_status
+    }
+};
+
+export default connect(mapStateToProps, { updateTaskGroup })(Dashboard);

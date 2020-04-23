@@ -16,7 +16,9 @@ dotenv.config();
 */
 
 const verifyToken = async (req, res, next) => {
+
     const { token } = req.headers;
+
     if (!token) {
         errorMessage.error = 'Token not provided';
         return res.status(status.bad).send(errorMessage);
@@ -35,6 +37,7 @@ const verifyToken = async (req, res, next) => {
         next();
 
     } catch (error) {
+        console.log(error)
         errorMessage.error = 'Authentication Failed';
         return res.status(status.unauthorized).send(errorMessage);
     }
