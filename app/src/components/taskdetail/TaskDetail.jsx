@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import { connect } from 'react-redux';
-import './taskdetail.css';
 import { createNewTask, updateDescription } from '../../actions/taskAction';
 import PropTypes from 'prop-types';
 import { getEmptyTask } from '../../helpers/helperTask';
 import { Link } from 'react-router-dom';
 import { history } from './../../store/history';
+import './taskdetail.css';
 require('react-datepicker/dist/react-datepicker.css');
 
 class TaskDetail extends Component {

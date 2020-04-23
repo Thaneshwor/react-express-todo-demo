@@ -30,6 +30,14 @@
     border-bottom-right-radius: 20px;
 }
 
+.task-aside button{
+    background-color: #c8ccce;
+}
+
+.login-msg {
+    text-align: center;
+    color: red;
+}
 @media screen and (max-width: 480px) {
 
     .task-body{

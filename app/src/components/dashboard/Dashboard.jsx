@@ -3,6 +3,7 @@ import TaskList from '../tasklist/TaskList';
 import { updateTaskGroup } from '../../actions/taskAction';
 import './dashboard.css';
 import { connect } from 'react-redux';
+
 class Dashboard extends Component {
 
     changeStatue = (e) => {
@@ -26,6 +27,7 @@ class Dashboard extends Component {
                         <TaskList />
                     </div>
                 </div>
+                {!this.props.isAuthenticated && <div className='login-msg'>Please Log In</div>}
             </div>
         );
     }
@@ -34,8 +36,10 @@ class Dashboard extends Component {
 const mapStateToProps = (state) => {
 
     let task_status = state.task_status;
+    let isAuthenticated = state.auth.isAuthenticated;
     return {
-        task_status
+        task_status,
+        isAuthenticated
     }
 };
 

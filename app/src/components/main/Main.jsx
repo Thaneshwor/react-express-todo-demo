@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { Router, Route, Redirect } from 'react-router-dom';
-import '../../assets/css/common.css';
+import { history } from '../../store/history';
 import Login from '../login/Login';
 import Navbar from '../header/Navbar';
-import { Provider } from 'react-redux';
-import { history } from '../../store/history';
-
-
 import Dashboard from '../dashboard/Dashboard';
 import TaskDetail from '../taskdetail/TaskDetail';
 import CreateUser from '../createuser/CreateUser';
+import '../../assets/css/common.css';
 
 
 class Main extends Component {

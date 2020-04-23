@@ -19,7 +19,6 @@ class Login extends Component {
         }
     }
 
-
     componentDidUpdate(pervState) {
         const { error, isAuthenticated } = this.props;
 

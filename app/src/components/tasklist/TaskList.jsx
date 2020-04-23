@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { history } from './../../store/history';
 import './tasklist.css';
-import { it } from 'date-fns/esm/locale';
 
 class TaskList extends Component {
 
@@ -36,7 +35,7 @@ class TaskList extends Component {
         return (
             <div className='task-desc'>
                 <div className='task-desc-title'>
-                    <h2>Todo</h2>
+                    <h2>{this.props.taskState}</h2>
                 </div>
                 <div className='task-desc-body'>
                     <ul>
