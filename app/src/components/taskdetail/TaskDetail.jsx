@@ -15,7 +15,7 @@ class TaskDetail extends Component {
         this.state = {
             id: this.props.task.id,
             description: this.props.task.description,
-            task_group: this.props.task.task_group,
+            task_group: this.props.task.task_group || 'To Do',
             due_date: new Date(this.props.task.due_date),
         }
     }

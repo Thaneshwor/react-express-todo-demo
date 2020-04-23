@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { history } from './../../store/history';
 import './tasklist.css';
+import { it } from 'date-fns/esm/locale';
 
 class TaskList extends Component {
 
@@ -13,7 +14,6 @@ class TaskList extends Component {
     }
 
     onDeleteClick = (id) => {
-        console.log(id)
         this.props.deleteTask(id);
     }
 
@@ -27,6 +27,11 @@ class TaskList extends Component {
 
     render() {
         const { tasks } = this.props.task;
+        const filteredTask = tasks.filter((task) => {
+            if (task.task_group === this.props.taskState) {
+                return task
+            }
+        })
 
         return (
             <div className='task-desc'>
@@ -35,7 +40,7 @@ class TaskList extends Component {
                 </div>
                 <div className='task-desc-body'>
                     <ul>
-                        {tasks.map((task) => (
+                        {filteredTask.map((task) => (
                             <li key={task.id}><button className='btn-delete' onClick={() => this.onDeleteClick(task.id)}>Delete</button> <Link to={'/task/' + task.id}>{task.description}</Link></li>
                         ))}
                     </ul>
@@ -55,7 +60,7 @@ TaskList.propTypes = {
 
 const mapStateToProps = (state) => ({
     task: state.task,
-    // taskState: state.taskG
+    taskState: state.task.task_status,
 });
 
 export default connect(mapStateToProps, { getTasks, deleteTask, createNewTask })(TaskList);

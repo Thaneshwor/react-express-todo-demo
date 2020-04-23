@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 class Dashboard extends Component {
 
     changeStatue = (e) => {
-        console.log(e.target.value)
         this.props.updateTaskGroup(e.target.value);
     }
 
